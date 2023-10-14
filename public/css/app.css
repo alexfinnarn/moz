@@ -1,0 +1,39 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    font-family: 'Georgia', serif;
+    font-size: 1.2rem;
+}
+
+main {
+    flex: 1 1 auto;
+}
+
+.container {
+    max-width: var(--max-width-screen-xl);
+    padding: var(--space-4);
+    margin: 0 auto;
+}
+
+p {
+    max-width: 70ch;
+    padding: 0 0.75rem;
+    line-height: 1.4;
+    font-size: 1.25rem;
+}
+
+pre {
+    background-color: #eee;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+}
+
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}

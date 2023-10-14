@@ -1,0 +1,7 @@
+<li>
+    <a href="{{ path('app_posts_show', {slug: slug}) }}">
+       <h2>{{ metadata.title }}</h2>
+    </a>
+    <span>{{ metadata.date|date("m/d/Y") }}</span>
+    <p>{{ metadata.summary }}</p>
+</li>

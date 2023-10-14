@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Posts{% endblock %}
+
+{% block body %}
+    <style comp="posts">
+        .posts .posts-list li {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+    <div class="posts container">
+        <h1>Post-its!</h1>
+        <ul class="posts-list">
+            {% for post in posts %}
+                <li hx-get="/posts/{{ post.slug }}/show/teaser" hx-trigger="load">
+                    <a href="{{ path('app_posts_show', {slug: post.slug}) }}">
+                       <h2>{{ post.slug|humanize }}</h2>
+                    </a>
+                    <span>{{ post.date|date("m/d/Y") }}</span>
+                    <p style="height:140px;"></p>
+                </li>
+            {% else %}
+                <li>No posts found</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

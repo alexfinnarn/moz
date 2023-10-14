@@ -22,3 +22,21 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    League\CommonMark\CommonMarkConverter:
+        arguments:
+            $config:
+                html_input: 'strip'
+                allow_unsafe_links: false
+
+    App\Command\GenerateSitemapCommand:
+        tags:
+            - { name: 'console.command' }
+        arguments:
+            $router: '@router'
+            $kernel: '@kernel'
+
+    App\Command\GenerateStaticPagesCommand:
+        arguments:
+            $httpKernel: '@http_kernel'
+        tags:
+            - { name: 'console.command' }

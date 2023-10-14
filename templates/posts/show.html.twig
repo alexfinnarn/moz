@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ metadata.title }}{% endblock %}
+
+{% block body %}
+    <style comp="post">
+
+    </style>
+    <main class="post container">
+        <h1>{{ metadata.title }}</h1>
+        {# If metadata.updated not the same as date, then add updated to span  #}
+        <span>{{ metadata.date |date("m/d/Y")  }}  </span>
+        {{ content|raw }}
+    </main>
+
+{% endblock %}

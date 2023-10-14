@@ -18,3 +18,10 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+
+# IntelliJ
+.idea
+
+# Generated static files.
+public/static
+public/sitemap.xml
