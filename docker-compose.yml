@@ -15,6 +15,37 @@ services:
       # - ./docker/db/data:/var/lib/postgresql/data:rw
 ###< doctrine/doctrine-bundle ###
 
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+
+  # Add a PHP webserver container.
+  webserver:
+      image: nginx:alpine
+      # Expose port 80 and 443 to the host machine, so we can access it
+      # from the outside.
+      ports:
+      - "80:80"
+      - "443:443"
+      # Map the volumes to the host machine.
+      volumes:
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./docker/nginx/ssl:/etc/nginx/ssl
+      - ./docker/nginx/log:/var/log/nginx
+      - ./public:/var/www/html
+      # Link the webserver container to the database container.
+      links:
+      - database
+      - redis
+      # Set the working directory.
+      working_dir: /var/www/html
+      # Set the entrypoint.
+      entrypoint: /docker-entrypoint.sh
+      # Set the command to run.
+      command: /bin/sh -c "while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\""
+      # Add PHP extension
+
 volumes:
 ###> doctrine/doctrine-bundle ###
   database_data:
