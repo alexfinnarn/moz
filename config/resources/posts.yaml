@@ -1,6 +1,0 @@
-parameters:
-  post:
-    post_limit: 15
-    post_order: DESC
-    post_sort: date
-    post_directory: '/posts'
