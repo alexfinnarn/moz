@@ -5,6 +5,7 @@ namespace App\Controller;
 use League\CommonMark\CommonMarkConverter;
 use League\CommonMark\Exception\CommonMarkException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -15,17 +16,17 @@ class PostsController extends AbstractController
 {
 
     #[Route('/posts', name: 'app_posts')]
-    public function index(Request $request, KernelInterface $kernel): Response
+    public function index(Request $request, KernelInterface $kernel, ParameterBagInterface $params): Response
     {
         // Get ?limit query parameter if it exists.
-        $limit = $request->query->get('limit') ?? 25;
+        $limit = $request->query->get('limit') ?? $params->get('posts.post_limit');
         $year = $request->query->get('year') ?? null;
         $month = $request->query->get('month') ?? null;
 
         // Search for posts in /posts directory that are older than today's date.
         // The format of the post files is YYYY-MM-DD_slug.md.
         $projectDir = $kernel->getProjectDir();
-        $directory = $projectDir . '/posts';
+        $directory = $projectDir . $params->get('posts.post_directory');
         $files = glob($directory . '/*.md');
         // Reverse files to be in descending order.
         $reversed_files = array_reverse($files);

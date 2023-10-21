@@ -245,3 +245,57 @@ public function onKernelResponse(ResponseEvent $event)
     $response->setContent($content);
 }
 ```
+
+### CSS Nesting
+
+CSS nesting is finally supported in the evergreen browsers so you can safely use it if you want. I'm not a big fan 
+of SASS, but the most awesome feature of it, beyond variables, was always nesting. Getting past those two features, 
+I can't see what other SASS features I would use. 
+
+Nesting helps with the way I set up component styling where I want to keep a container CSS class with all the other 
+CSS of the component. For example, with the header, I have a general container and also a site menu that looks like 
+this:
+
+```css
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 1rem;
+    max-width: var(--max-width-screen-lg);
+    width: 100%;
+}
+
+.header .site-menu {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+```
+
+This way, I could have another `site-menu` class without it conflicting with the header's menu styles. It can be 
+tedious to remember to add the container class, though, and with CSS nesting, all I have to do is add the 
+declaration once.
+
+```css
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 1rem;
+    max-width: var(--max-width-screen-lg);
+    width: 100%;
+
+    & .site-menu {
+        display: flex;
+        list-style: none;
+        padding: 0;
+    }
+}
+```
+
+It's not much of an improvement, to be honest, but it should help with maintenance and signal that the styles are 
+all one chunk instead of random styles. 
+
+I'm no CSS pro, but I've heard that over-nesting is bad. You ought to use nesting more for CSS psuedo-elements and 
+media queries than the way I'm using it here. 
