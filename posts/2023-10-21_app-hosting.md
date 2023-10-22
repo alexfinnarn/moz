@@ -78,5 +78,10 @@ By adding that line in a `Procfile` at the root of my codebase, Heroku knows to 
 web requests. You can add lines for background workers and other services you want kicked off whenever a container 
 is built, but I only need a web service for now.
 
-### Dev Bundles
+I ran into other issues, like the `APP_ENV` environmental variable not being set, but they were all cleared up in 
+the official Heroku guide to deploying Symfony applications: https://devcenter.heroku.com/articles/deploying-symfony4
+
+Note the "4" in the URL. I'm using Symfony 6.3 at the moment, but the article dates back to version 4. Even though 
+most of the content was written years ago, I can confirm it fixed all of my initial issues and is a necessary read 
+for anyone deploying a Symfony application on Heroku.
 
