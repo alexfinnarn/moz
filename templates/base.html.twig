@@ -12,11 +12,12 @@
         {% endblock %}
 
         {% block javascripts %}
+            <script src="{{ asset('js/app.js') }}"></script>
         {% endblock %}
     </head>
-    <body>
+    <body hx-boost="true">
         {% include 'partials/header.html.twig' %}
-        <main>
+        <main class="container">
             {% block body %}{% endblock %}
         </main>
         {% include 'partials/footer.html.twig' %}

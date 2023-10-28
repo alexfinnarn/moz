@@ -17,9 +17,24 @@ class StyleAggregatorListenerSubscriber implements EventSubscriberInterface
 
     public function onKernelResponse(ResponseEvent $event): void
     {
+        $request = $event->getRequest();
         $response = $event->getResponse();
         $content = $response->getContent();
         $unique_styles = [];
+
+        // Get the "styles" header from the request.
+        $current_styles = $request->headers->get('styles');
+
+        // The styles tags have a `comp` attribute that is used to identify the component.
+        // Extract all <style> tags with a 'comp' attribute from the current styles.
+        if (preg_match_all('/<style comp="([^"]+)">([\s\S]*?)<\/style>/', $current_styles, $matches, PREG_SET_ORDER)) {
+            foreach ($matches as $match) {
+                $comp = $match[1];
+                $style_content = $match[2];
+                // Store unique styles keyed by the 'comp' value
+                $unique_styles[$comp] = $style_content;
+            }
+        }
 
         // Extract all <style> tags with a 'comp' attribute
         if (preg_match_all('/<style comp="([^"]+)">([\s\S]*?)<\/style>/', $content, $matches, PREG_SET_ORDER)) {
@@ -43,8 +58,8 @@ class StyleAggregatorListenerSubscriber implements EventSubscriberInterface
         // Remove all original <style> blocks with a 'comp' attribute
         $content = preg_replace('/<style comp="[^"]+">[\s\S]*?<\/style>/', '', $content);
 
-        // Insert the aggregated styles at the end of the </head> element
-        $content = preg_replace('/<\/head>/', "$all_styles</head>", $content);
+        // Insert the aggregated styles at the start of the <body> tag within a <div id="styles-container"> block.
+        $content = preg_replace('/(<body[^>]*>)/', '$1<div id="styles-container" >' . $all_styles . '</div>', $content);
 
         // Update the Response object
         $response->setContent($content);
