@@ -16,7 +16,7 @@
             {% for post in posts %}
                 <li hx-get="/posts/show/{{ post.slug }}/teaser" hx-trigger="load">
                     <a href="{{ path('app_posts_show', {slug: post.slug}) }}">
-                       <h2>{{ post.slug|humanize }}</h2>
+                        <h2>{{ post.slug|humanize }}</h2>
                     </a>
                     <span>{{ post.date|date("m/d/Y") }}</span>
                     <p style="height:140px;"></p>

@@ -3,16 +3,15 @@
 {% block title %}{{ metadata.title }}{% endblock %}
 
 {% block body %}
-    <style comp="post">
-        .post {
-            max-width: var(--max-width-3xl);
-        }
-    </style>
-    <main class="post container">
+    <div class="post">
+        <style comp="post">
+            .post {
+                max-width: var(--max-width-3xl);
+            }
+        </style>
         <h1>{{ metadata.title }}</h1>
         {# If metadata.updated not the same as date, then add updated to span  #}
-        <span>{{ metadata.date |date("m/d/Y")  }}  </span>
+        <span>{{ metadata.date |date("m/d/Y") }}  </span>
         {{ content|raw }}
-    </main>
-
+    </div>
 {% endblock %}

@@ -3,28 +3,28 @@
 {% block title %}Posts{% endblock %}
 
 {% block body %}
-  <h1>Post-its!</h1>
-<style comp="posts">
-    .posts {
-        & li {
-            display: flex;
-            flex-direction: column;
-        }
-    }
-</style>
-<div class="posts">
-  <ul>
-    {% for post in posts %}
-    <li hx-get="/posts/show/{{ post.slug }}/teaser" hx-trigger="load">
-      <a href="{{ path('app_posts_show', {slug: post.slug}) }}">
-        <h2>{{ post.slug|humanize }}</h2>
-      </a>
-      <span>{{ post.date|date("m/d/Y") }}</span>
-      <p style="height:140px;"></p>
-    </li>
-    {% else %}
-    <li>No posts found</li>
-    {% endfor %}
-  </ul>
-</div>
+    <h1>Post-its!</h1>
+    <div class="posts">
+        <style>
+            .posts {
+                & li {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+        </style>
+        <ul>
+            {% for post in posts %}
+                <li hx-get="/posts/show/{{ post.slug }}/teaser" hx-trigger="load">
+                    <a href="{{ path('app_posts_show', {slug: post.slug}) }}">
+                        <h2>{{ post.slug|humanize }}</h2>
+                    </a>
+                    <span>{{ post.date|date("m/d/Y") }}</span>
+                    <p style="height:140px;"></p>
+                </li>
+            {% else %}
+                <li>No posts found</li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

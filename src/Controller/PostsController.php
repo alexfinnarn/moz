@@ -34,7 +34,7 @@ class PostsController extends AbstractController
         ]);
     }
 
-    #[Route('posts/list', name: 'app_posts_list')]
+    #[Route('posts/_list', name: 'app_posts_list')]
     public function list(Request $request, KernelInterface $kernel, ParameterBagInterface $params)
     {
         // Get ?limit query parameter if it exists.
@@ -48,7 +48,7 @@ class PostsController extends AbstractController
         $directory = $projectDir . $params->get('posts.post_directory');
         $posts = $this->getPosts($directory, $limit, $year, $month);
 
-        return $this->render('posts/list.html.twig', [
+        return $this->render('posts/_list.html.twig', [
           'posts' => $posts,
         ]);
     }
@@ -59,7 +59,7 @@ class PostsController extends AbstractController
         $projectDir = $kernel->getProjectDir();
         $directory = $projectDir . $params->get('posts.post_directory');
 
-        $fileContent = $this->getPost($directory, $slug);
+        [$fileContent, $lastUpdatedDate] = $this->getPost($directory, $slug);
 
         [$markdownContent, $metadata] = $this->separateFrontmatterFromMarkdownContent($fileContent);
 
@@ -72,6 +72,7 @@ class PostsController extends AbstractController
         return $this->render('posts/show.html.twig', [
           'content' => $htmlContent,
           'metadata' => $metadata,
+          'lastUpdatedDate' => $lastUpdatedDate,
         ]);
     }
 
@@ -81,13 +82,14 @@ class PostsController extends AbstractController
         $projectDir = $kernel->getProjectDir();
         $directory = $projectDir . $params->get('posts.post_directory');
 
-        $fileContent = $this->getPost($directory, $slug);
+        [$fileContent, $lastUpdatedDate] = $this->getPost($directory, $slug);
 
         [$markdownContent, $metadata] = $this->separateFrontmatterFromMarkdownContent($fileContent);
 
         return $this->render('posts/teaser.html.twig', [
           'slug' => $slug,
           'metadata' => $metadata,
+          'lastUpdatedDate' => $lastUpdatedDate,
         ]);
     }
 
@@ -95,9 +97,9 @@ class PostsController extends AbstractController
      * @param string $directory
      * @param string $slug
      *
-     * @return string|false
+     * @return array|false
      */
-    public function getPost(string $directory, string $slug): bool|string
+    public function getPost(string $directory, string $slug): bool|array
     {
 
         $files = glob($directory . '/*.md');
@@ -125,7 +127,7 @@ class PostsController extends AbstractController
             throw $this->createNotFoundException('The post does not exist');
         }
 
-        return file_get_contents($matchingFile);
+        return [file_get_contents($matchingFile), filemtime($matchingFile)];
     }
 
     /**
@@ -191,6 +193,7 @@ class PostsController extends AbstractController
             if (strtotime($fileDate) < strtotime('today')) {
                 $posts[] = [
                   'date' => $fileDate,
+                  'updated' => filemtime($file),
                   'slug' => $fileSlug,
                 ];
             }

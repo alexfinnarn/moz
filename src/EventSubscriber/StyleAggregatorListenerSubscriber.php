@@ -58,11 +58,18 @@ class StyleAggregatorListenerSubscriber implements EventSubscriberInterface
         // Remove all original <style> blocks with a 'comp' attribute
         $content = preg_replace('/<style comp="[^"]+">[\s\S]*?<\/style>/', '', $content);
 
+        // Remove any `<div id="styles-container">` blocks.
+        $content = preg_replace('/<div id="styles-container">[\s\S]*?<\/div>/', '', $content);
+
         // Insert the aggregated styles at the start of the <body> tag within a <div id="styles-container"> block.
-        $content = preg_replace('/(<body[^>]*>)/', '$1<div id="styles-container" >' . $all_styles . '</div>', $content);
+        if (!empty($current_styles)) {
+            $content = preg_replace('/(<body[^>]*>)/', '$1<div id="styles-container" hx-oob-swap="true">' . $all_styles . '</div>', $content);
+        } else {
+            $content = preg_replace('/(<body[^>]*>)/', '$1<div id="styles-container">' . $all_styles . '</div>', $content);
+        }
 
         // Update the Response object
-        $response->setContent($content);
+//        $response->setContent($content);
     }
 
     function minify_css(string $css): string {

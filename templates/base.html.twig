@@ -15,7 +15,8 @@
             <script src="{{ asset('js/app.js') }}"></script>
         {% endblock %}
     </head>
-    <body hx-boost="true">
+{# @todo Add back hx-boost once the non 200 responses load the errors instead of nothing changing. #}
+    <body>
         {% include 'partials/header.html.twig' %}
         <main class="container">
             {% block body %}{% endblock %}

@@ -1,0 +1,40 @@
+{# Print out the list of contacts by name, email, phone, and message in a table #}
+<table class="contact-list">
+    <style>
+        .contact-list {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        .contact-list th, .contact-list td {
+            text-align: left;
+            padding: var(--space-3);
+            border: 1px solid #ddd;
+        }
+
+        .contact-list tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .contact-list th {
+            background-color: var(--color-primary);
+            color: white;
+        }
+    </style>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Message</th>
+    </tr>
+    {% for contact in contacts %}
+        <tr>
+            <td>{{ contact.name }}</td>
+            <td>{{ contact.email }}</td>
+            <td>{{ contact.phone }}</td>
+            <td>{{ contact.message }}</td>
+        </tr>
+    {% endfor %}
+</table>
+

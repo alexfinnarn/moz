@@ -43,3 +43,93 @@ code {
     padding-left: 0;
     list-style: none;
 }
+
+/* htmx Styles */
+.posts {
+    opacity: 1;
+    transition: opacity 1s ease-out;
+
+    &.htmx-added {
+        opacity: 0;
+    }
+}
+
+.posts--teaser {
+    opacity: 1;
+    transition: opacity 1s ease-out;
+
+    &.htmx-added {
+        opacity: 0;
+    }
+}
+
+/* End htmx styles */
+
+/* Base Styles for the Form */
+/*form {*/
+/*    max-width: var(--max-width-screen-sm);*/
+/*    margin: 0 auto;*/
+/*    padding: var(--space-4);*/
+/*}*/
+
+/* Input Fields */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea,
+select {
+    width: 100%;
+    padding: var(--space-3) var(--space-6);
+    margin: var(--space-2) 0;
+    display: inline-block;
+    border: var(--space-px) solid #ccc;
+    border-radius: var(--space-1);
+    box-sizing: border-box;
+}
+
+/* Focus State */
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+select:focus {
+    border: var(--space-px) solid var(--color-primary);
+    box-shadow: 0 0 var(--space-1) rgba(0, 123, 255, 0.5);
+}
+
+/* Select Dropdown */
+select {
+    appearance: none;
+    background-color: white;
+    background-image: url("data:image/svg+xml;charset=UTF8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23000000' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--space-3) center;
+    background-size: var(--space-4);
+}
+
+/* Submit Button */
+input[type="submit"] {
+    width: 100%;
+    background-color: var(--color-primary);
+    color: white;
+    padding: var(--space-3-5) var(--space-5);
+    margin: var(--space-2) 0;
+    border: none;
+    border-radius: var(--space-1);
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Animations  */
+
+@keyframes wiggle {
+    0% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+    100% { transform: rotate(-3deg); }
+}
+
+.wiggle {
+    animation: wiggle 0.5s ease-in-out infinite;
+}

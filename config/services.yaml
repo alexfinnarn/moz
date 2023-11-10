@@ -4,6 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    app.base_url: 'https://moz.ddev.site'
     posts.post_limit: 15
     posts.post_order: DESC
     posts.post_sort: date
@@ -38,6 +39,7 @@ services:
         arguments:
             $router: '@router'
             $kernel: '@kernel'
+            $params: '@parameter_bag'
 
     App\Command\GenerateStaticPagesCommand:
         arguments:
