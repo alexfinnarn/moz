@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0be19d4f4578ce7df10f6e5389614c11",
+    "content-hash": "00329591812325bb4316068cd4f3cf23",
     "packages": [
         {
             "name": "dflydev/dot-access-data",
@@ -5571,16 +5571,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v6.3.11",
+            "version": "v6.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "0a4e8fac947b0f1720b0f634a13a2273cc4cc1ad"
+                "reference": "c4b1ef0bc80533d87a2e969806172f1c2a980241"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/0a4e8fac947b0f1720b0f634a13a2273cc4cc1ad",
-                "reference": "0a4e8fac947b0f1720b0f634a13a2273cc4cc1ad",
+                "url": "https://api.github.com/repos/symfony/process/zipball/c4b1ef0bc80533d87a2e969806172f1c2a980241",
+                "reference": "c4b1ef0bc80533d87a2e969806172f1c2a980241",
                 "shasum": ""
             },
             "require": {
@@ -5612,7 +5612,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v6.3.11"
+                "source": "https://github.com/symfony/process/tree/v6.4.2"
             },
             "funding": [
                 {
@@ -5628,7 +5628,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-12-02T12:48:42+00:00"
+            "time": "2023-12-22T16:42:54+00:00"
         },
         {
             "name": "symfony/property-access",
