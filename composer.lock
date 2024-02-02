@@ -9771,16 +9771,16 @@
         },
         {
             "name": "symfony/web-profiler-bundle",
-            "version": "v6.3.11",
+            "version": "v6.3.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/web-profiler-bundle.git",
-                "reference": "de03ba8beca31dcc0e2d91ebbd630457dd3ddd9b"
+                "reference": "920efdd0f53f088b44963cf89368038ee39719b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/web-profiler-bundle/zipball/de03ba8beca31dcc0e2d91ebbd630457dd3ddd9b",
-                "reference": "de03ba8beca31dcc0e2d91ebbd630457dd3ddd9b",
+                "url": "https://api.github.com/repos/symfony/web-profiler-bundle/zipball/920efdd0f53f088b44963cf89368038ee39719b9",
+                "reference": "920efdd0f53f088b44963cf89368038ee39719b9",
                 "shasum": ""
             },
             "require": {
@@ -9832,7 +9832,7 @@
                 "dev"
             ],
             "support": {
-                "source": "https://github.com/symfony/web-profiler-bundle/tree/v6.3.11"
+                "source": "https://github.com/symfony/web-profiler-bundle/tree/v6.3.12"
             },
             "funding": [
                 {
@@ -9848,7 +9848,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-12-27T08:09:36+00:00"
+            "time": "2024-01-23T16:21:43+00:00"
         },
         {
             "name": "theseer/tokenizer",
