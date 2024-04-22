@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          persist-credentials: false
       # Might need to use cURL but weird if you can't use the gh CLI in a Workflow...
       - run: gh workflow run content_release.yml
   on-failure:
