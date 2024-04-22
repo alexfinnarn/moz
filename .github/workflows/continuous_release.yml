@@ -12,6 +12,8 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
       # Might need to use cURL but weird if you can't use the gh CLI in a Workflow...
       - run: gh workflow run content_release.yml
   on-failure:
