@@ -1,0 +1,19 @@
+name: Continuous Release
+
+on:
+  workflow_run:
+    workflows: [Content Release]
+    types: [completed]
+
+jobs:
+  on-success:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      # Might need to use cURL but weird if you can't use the gh CLI in a Workflow...
+      - run: gh workflow run content_release.yml
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: echo "Content Release failed"
