@@ -67,15 +67,80 @@ but at least this is better than manually checking yourself.
 While I could try `composer outdated` to show me what I likely should update, one of the advantages of using Dependabot
 is that it shows you the release notes and commits right there on GitHub.
 
-![dependabot release notes](images/dependabot-release-notes.png)
+![dependabot release notes](/images/posts/dependabot-release-notes.png)
 
 It would take me some time to find the release notes if I wanted to scan a list of outdated dependencies, and I would have
-to look up each one to check. Granted, I don't really read the release notes
+to look up each one to check. Granted, I don't really read the release notes anyway, but it's nice to have there if you
+want to take a look.
 
 ## Security Updates
 
+Security updates are a bit different than the standard Dependabot pull requests. If you go to the `/security` section
+of your GitHub project, you'll see a bunch of security features you can turn on.
+
+![GitHub security page](/images/posts/github-security.png)
+
+Let's go through the listed options:
+
+- **Security policy** - If you are collaborating with other people, then you might want to set up a policy, but for
+a personal project, I am going to skip this section. 
+- **Security advisories** - I had this enabled and turned it on at some point. 
+- **Private vulnerability reporting** - It sets up a way for other people to securely report issues, but for me, this would 
+be overkill.
+- **Dependabot alerts** - I enable this so I can see if any dependency has a vulnerability. 
+- **Code scanning alerts** - These can't hurt so I always have it turned on, but I will explain more about this in another post
+[link to post](#)
+- **Secret scanning alerts** - This will catch when you expose credentials in pull requests so I usually keep it on. Sometimes
+it will mark local development environmental variables, like `DATABASE_URL`, as exposed, but I think once you dismiss the alert
+it won't check that value any more.
+
+Wouldn't all security updates be included in the regular PR version updates Dependabot already makes, you might ask?
+
+Dependabot security alerts go far beyond what's listed in the require sections of a `composer.json` file. The whole lock file
+is scanned for security issues, and then Dependabot can tell you if anything in the lock file has a vulnerability. 
+
+Relying on the regular version updates will probably catch the vulnerability eventually, but with security updates, you 
+can catch the alert potentially even before the maintainer of the package you rely on sees it. This practice hopefully speeds 
+up the turnaround time for vulnerabilities get reported and when OSS maintainers do something about them.
 
 ## Automating the Updates
+
+I've been using Dependabot for years, and it can get quite old logging into GitHub and seeing tons of update PRs in the 
+queue. If you have tests for your project, you wonder: how can I automate this? 
+
+Well, you can create a GitHub workflow to merge the code for you.
+
+```yaml
+name: Dependabot auto-merge
+on: pull_request
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    steps:
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v1
+        with:
+          github-token: '${{ secrets.GITHUB_TOKEN }}'
+      - name: Enable auto-merge for Dependabot PRs
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+```
+
+That configuration should allow Dependabot to merge in the PR even though it is an outside collaborator. 
+
+The key is to make sure you have branch protection enabled and "Require status checks to pass before merging" checked
+with at least one status check.
+
+![Branch protection configuration](images/posts/branch-protection.png)
 
 ## Commit Cred Inflation Bonus
 

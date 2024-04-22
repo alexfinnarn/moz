@@ -79,12 +79,28 @@ scope creep and keep me honest about what I can accomplish.
 - Backlog
   - Projects that stalled but I might go back to at some point in the future.
 
-I basically move items between those lists via drag-n-drop, check them off as completed, or delete them entirely. I don't use any
-of the other Workflowy features so I figured Obsidian might be able to meet my needs rather quickly.
+I basically move items between those lists via drag-n-drop, check them off as completed, or delete them entirely. I 
+don't use any of the other Workflowy features so I figured Obsidian might be able to meet my needs rather quickly.
 
 ## Installing Obsidian
 
 You can download and install Obsidian from the main website, https://obsidian.md/, where you can also read about its core
-features
+features where you'll find out...that to sync your notes across apps it will cost...just as much as Workflowy...hmm.
+
+So, the tale ends here. A short tale about how open source products can sound great until you think through hosting
+and maintaining them. Plus, there's the getting used to a new tool and workflow.
+
+## Future Work
+
+I will go back to my task management app work now. I've renewed my Workflowy subscription for another year, and I've
+already found a reason to continue building my own app.
+
+Workflowy has a nice feature where you can add notes to any task, and it truncates most of the note allowing you to 
+easily click to reveal the whole note. I just used the note feature to put the email confirmation text next to an 
+event-related task, but I noticed the note lost all it's formatting. 
+
+Well, in my app that won't happen. But until then, I'll gladly use Workflowy for my "glorified bullet list" needs.
+you use Obsidian, drop me a line and let me know how that's going for you.
+
 
 

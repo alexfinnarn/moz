@@ -49,7 +49,7 @@ Luckily for me, I found a framework guide in the Tailwind CSS docs section: http
 
 But as I read through how to add Tailwind with Webpack and all the processing, I thought to myself...do I really 
 need Tailwind to do a simple site? Am I adding a decent bit of complexity and extra dependencies for the benefit of 
-nto really learning CSS. 
+really learning CSS?
 
 Oh yeah, now I remember that when I last used Tailwind I ended up ditching it because some CSS concepts, like CSS 
 grid are impossible to translate to Tailwind without splitting them up and breaking the cohesiveness of the original 
