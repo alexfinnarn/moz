@@ -3,6 +3,7 @@ name: Content Release
 on:
   repository_dispatch:
     types: [content-release]
+  workflow_dispatch:
 #  workflow_run:
 #    workflows: ['Create Production Tag']
 #    types: [completed]
