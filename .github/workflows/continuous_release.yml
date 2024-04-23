@@ -7,17 +7,8 @@ on:
 
 jobs:
   on-success:
-    runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    env:
-      GH_TOKEN: ${{ github.token }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
-      - name: Release content
-        uses: ./.github/workflows/content_release.yml
+    uses: ./.github/workflows/content_release.yml
   on-failure:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
