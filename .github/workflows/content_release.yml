@@ -4,6 +4,7 @@ on:
   repository_dispatch:
     types: [content-release]
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   test:
