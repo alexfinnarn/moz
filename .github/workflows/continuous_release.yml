@@ -43,6 +43,8 @@ jobs:
             fi
 
       - name: Run Content Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: env.BUSINESS_HOURS == 'true' && env.RELEASE_WORKFLOW_RUNNING == 'false'
         run: |
           gh workflow run content_release.yml
