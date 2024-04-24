@@ -1,26 +1,40 @@
 name: Continuous Release
 
 on:
-  workflow_run:
-    workflows: [Content Release]
-    types: [completed]
+  workflow_dispatch:
+  schedule:
+    # Run every five minutes.
+    - cron: '*/5 * * * *'
+
 
 jobs:
-  on-success:
+  trigger_release:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
-      # Might need to use cURL but weird if you can't use the gh CLI in a Workflow...
-      - name: Trigger Content Release
+      - name: During business hours?
+        # Check to see if it is a weekday between 8am and 8pm in "America/New_York" timezone.
+        # Times taken from RunsDuringBusinessHours.php::isCurrentlyDuringBusinessHours()
+        run: |
+            export TZ="America/New_York"
+            echo "Current time: $(date)"
+            if [ $(date +%u) -lt 6 ] && [ $(date +%H) -ge 8 ] && [ $(date +%H) -lt 20 ]; then
+              echo "It is during business hours."
+              exit 0
+            else
+              echo "It is not during business hours."
+              exit 1
+            fi
+
+      - name: Content Release running?
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh workflow run content_release.yml
-  on-failure:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-    steps:
-      - run: echo "Content Release failed"
+        run: |
+            RUNNING_WORKFLOWS=$(gh run list --workflow "Content Release" --json status --jq '.[] | select(.status == "in_progress")')
+            if [ -n "$RUNNING_WORKFLOWS" ]; then
+                echo "Content Release is already running."
+                exit 1
+            else
+                echo "Content Release is not running."
+                exit 0
+            fi
+          
